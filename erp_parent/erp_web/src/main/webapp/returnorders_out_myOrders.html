@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>销售退货登记</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css"></link>
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/table.css"></link>
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="ui/date.js"></script>
+
+<script type="text/javascript" src="js/returnorders_out_add.js"></script>
+<script type="text/javascript" src="ui/request.js"></script>
+<script type="text/javascript" src="js/returnorders_out_myOrders.js"></script>
+
+</head>
+<body>
+
+<table id="grid"></table>
+
+<div id="ordersWindow" class="easyui-dialog" title="退货订单详情" style="width:715px;height:440px"
+     data-options="modal:true,closed:true">
+            <table class="hovertable">
+                <tr>
+                    <td width="10%" class="bg">流水号</td>
+                    <td id="uuid" width="15%"></td>
+                    <td width="10%" class="bg" >客户</td>
+                    <td id="supplier" width="40" colspan="3"></td>
+                    <td width="10%" class="bg">状态</td>
+                    <td id="state" width="15%"></td>
+                </tr>
+                <tr>
+                    <td width="10%" class="bg">下单员</td>
+                    <td id="createrName" width="15%"></td>
+                    <td width="10%" class="bg">销售日期</td>
+                    <td id="createtime" width="15%"></td>
+                    <td width="10%" class="bg">审核员</td>
+                    <td id="checkerName" width="15%"></td>
+                    <td width="10%" class="bg">审核日期</td>
+                    <td  width="15%" id="checktime"></td>
+
+                </tr>
+                <tr>
+                    <td width="10%" class="bg">仓库员</td>
+                    <td id="enderName" width="15%"></td>
+                    <td width="10%" class="bg">入库日期</td>
+                    <td id="endtime" width="15%"></td>
+
+                    <td width="10%" class="bg"></td>
+                    <td width="15%"></td>
+                    <td width="10%" class="bg"></td>
+                    <td  width="15%"></td>
+                </tr>
+            </table>
+            <table id="orderItem"></table>
+</div>
+<div id="ordersAdd" class="easyui-dialog" title="销售退货登记" data-options="modal:true,closed:true">
+ <div class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center'">
+	<form id="orderForm">
+       	退货客户: <input id="supplieruuid" name="t.supplieruuid" style="margin: 2px" class="easyui-combobox" data-options="
+				        valueField: 'supplieruuid',
+				        textField: 'supplierName',
+				        mode:'remote',
+				        url: 'orders!list.action?t1.type=2&t1.state=1',				  
+				        onSelect: function(rec){
+				            var url = 'orders!list.action?t1.type=2&t1.state=1&t1.supplieruuid='+rec.supplieruuid;
+				            $('#ordersuuid').combobox('clear');
+				            $('#ordersuuid').combobox('reload', url);
+				        }" />
+     退货订单号: <input id="ordersuuid" name="t.ordersuuid" class="easyui-combobox"
+                      data-options="valueField:'uuid',textField:'uuid',
+                      		onSelect:function(rec){
+                      			 //查询订单详情
+							$.ajax({
+							url : 'orderdetail!list.action',
+							dataType:'json',
+							data:{'t1.orders.uuid': rec.uuid,'t1.state': '1','t1.type': '2'},
+							type : 'post',
+							success : function(rtn) {
+										//加载到searchGrid表中
+           								 $('#searchGrid').datagrid('loadData', rtn);
+									}
+								});
+                      		}"/>
+    </form>
+    <table id="gridAdd"></table>
+    </div>
+	<div data-options="region:'south',height:'200'">
+	    <table id="searchGrid"></table>
+	</div>
+</div>
+</div>
+
+</body>
+</html>

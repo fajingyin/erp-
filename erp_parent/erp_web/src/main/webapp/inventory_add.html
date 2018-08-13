@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>盘盈盘亏登记</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css"></link>
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css"></link>
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="ui/date.js"></script>
+<script type="text/javascript" src="js/inventory_add.js"></script>
+<script type="text/javascript" src="js/inventoryUtil.js"></script>
+</head>
+<body>
+
+<table id="grid"></table>
+
+<!-- 商品录入的窗口 -->
+<div id="editDlg" style="padding:8px;">
+    <form id="editForm">
+        <input name="t.uuid" type="hidden"> 
+		<table>
+            <tr>
+    			<td>商品</td><td><input name="t.goodsuuid" class="easyui-combobox" data-options="
+                    valueField:'uuid',textField:'name',url:'goods!list.action',required:true"> 
+                </td>
+			</tr>
+			<tr>
+			    <td>仓库</td><td><input name="t.storeuuid" class="easyui-combobox" data-options="
+                    valueField:'uuid',textField:'name',url:'store!list.action',required:true"> 
+			    </td>
+			</tr>
+			<tr>
+			    <td>数量</td><td><input name="t.num"> </td>
+			</tr>
+			<tr>
+			    <td>类型</td>
+			    <td>
+			    <input type="radio" name="t.type" value="1">盘盈
+			 	<input type="radio" name="t.type" value="0">盘亏
+			 	</td>
+			</tr>			
+			<tr>
+			    <td>备注</td><td><input name="t.remark"> </td>
+			</tr>	
+        </table>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="btnSave">保存</a>
+    </form>
+</div>
+
+</body>
+</html>

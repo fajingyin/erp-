@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>盘盈盘亏管理</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css"></link>
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css"></link>
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="ui/date.js"></script>
+<script type="text/javascript" src="js/inventory.js"></script>
+<script type="text/javascript" src="js/inventoryUtil.js"></script>
+</head>
+<body>
+<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
+    <div style="height:2px;"></div>
+    <form id="searchForm">
+		登记日期：
+			<input name="t1.createtime"  class="easyui-datebox" editable="false"></input>至<input name="t2.createtime"  class="easyui-datebox" editable="false"></input>
+		审核日期：
+			<input name="t1.checktime"  class="easyui-datebox" editable="false"></input>至<input name="t2.checktime"  class="easyui-datebox" editable="false"></input>
+		类型：
+	    	<select class="easyui-combobox" name="t1.type" >   
+	    		<option value="" selected="selected"></option>
+		   	 	<option value="1">盘盈</option>   
+		    	<option value="0">盘亏</option>   
+			</select>  
+		<button type="button" id="btnSearch">查询</button>
+    </form>
+    <div style="height:2px;"></div>
+</div>
+	<table id="grid"></table>
+
+</body>
+</html>
